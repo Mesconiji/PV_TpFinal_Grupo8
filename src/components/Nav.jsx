@@ -1,5 +1,11 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../hook/userAuth';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import '../styles/indexstyle.css';
 
 export default function Nav() {
   const { auth, logout } = useAuth();
@@ -13,38 +19,19 @@ export default function Nav() {
   if (!auth || !auth.estaLogeado) return null;
 
   return (
-    <nav style={{
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      alignItems: 'center', 
-      padding: '10px 20px', 
-      backgroundColor: '#1976d2', 
-      color: 'white'
-    }}>
-      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-        <strong>Admin Panel</strong>
-        <Link to="/dashboard" style={{ color: 'white', marginRight: '10px', textDecoration: 'none' }}>Dashboard</Link>
-        <Link to="/clientes" style={{ color: 'white', textDecoration: 'none' }}>Lista de Clientes</Link>
-      </div>
-      
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <span>
-          {auth.usuario?.nombre} — <strong>{auth.usuario?.sector}</strong>
-        </span>
-        <button 
-          onClick={handleLogout}
-          style={{
-            backgroundColor: '#d32f2f',
-            color: 'white',
-            border: 'none',
-            padding: '6px 12px',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}
-        >
-          Cerrar Sesión
-        </button>
-      </div>
-    </nav>
+    <AppBar position="static" className="nav-appbar">
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Typography variant="h6" component="div">Admin Panel</Typography>
+          <Button color="inherit" component={RouterLink} to="/dashboard">Dashboard</Button>
+          <Button color="inherit" component={RouterLink} to="/clientes">Lista de Clientes</Button>
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Typography variant="body2">{auth.usuario?.nombre} — <strong>{auth.usuario?.sector}</strong></Typography>
+          <Button variant="contained" color="error" onClick={handleLogout} className="logout-button">Cerrar Sesión</Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }

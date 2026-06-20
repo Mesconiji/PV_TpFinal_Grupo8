@@ -1,9 +1,15 @@
 // Integrante 3 creara la tabla aca
+import { Container, Typography, Card, CardContent } from '@mui/material';
+
 export default function ListaClientes() {
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Lista de Clientes (Vista Principal)</h2>
-      <p>Aquí se renderizará la tabla de usuarios consumiendo GET /users de FakeStore API.</p>
-    </div>
+    <Container className="lista-container">
+      <Card>
+        <CardContent>
+          <Typography variant="h5">Lista de Clientes (Vista Principal)</Typography>
+          <Typography sx={{ mt: 1 }}>Aquí se renderizará la tabla de usuarios consumiendo GET /users de FakeStore API.</Typography>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }

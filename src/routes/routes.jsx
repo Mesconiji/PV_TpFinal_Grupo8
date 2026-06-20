@@ -22,34 +22,28 @@ export default function AppRoutes() {
 
       <Route 
         path="/dashboard" 
-        element={
-          <RutaProtegida
-        >
+          element={
+          <RutaProtegida>
             <Dashboard />
-          </RutaProtegida
-        >
+          </RutaProtegida>
         } 
       />
       
       <Route 
         path="/clientes" 
         element={
-          <RutaProtegida
-        >
+          <RutaProtegida>
             <ListaClientes />
-          </RutaProtegida
-        >
+          </RutaProtegida>
         } 
       />
       
       <Route 
         path="/clientes/:id" 
         element={
-          <RutaProtegida
-        >
+          <RutaProtegida>
             <DetalleCliente />
-          </RutaProtegida
-        >
+          </RutaProtegida>
         } 
       />
 
