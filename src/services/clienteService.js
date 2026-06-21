@@ -70,10 +70,19 @@ const clienteService = (() => {
     return null;
   };
 
+  // Metricas para el dashboard: total de clientes activos y eliminados
+  const obtenerEstadisticas = async () => {
+    await inicializar();
+    const total = clientes.filter((c) => c.visible !== false).length;
+    const eliminados = clientes.filter((c) => c.visible === false).length;
+    return { total, eliminados };
+  };
+
   return {
     obtenerClientes,
     obtenerClientePorId,
     eliminarCliente,
+    obtenerEstadisticas,
   };
 
 })();

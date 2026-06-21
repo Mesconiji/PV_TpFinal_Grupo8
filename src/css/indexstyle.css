@@ -1,10 +1,20 @@
 
 .login-container {
   margin-top: 64px;
-  padding: 24px;
+}
+
+.login-card {
+  padding: 32px;
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  background-color: #ffffff;
+}
+
+.login-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.login-alert {
+  margin-bottom: 16px;
 }
 
 .login-form {
@@ -51,6 +61,31 @@
   margin-top: 8px;
 }
 
+.dashboard-intro {
+  margin-bottom: 24px;
+}
+
+.dashboard-loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.dashboard-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  flex: 1 1 240px;
+  min-width: 240px;
+}
+
+.metric-eliminados {
+  color: #d32f2f;
+}
+
 .nav-toolbar {
   display: flex;
   justify-content: space-between;
@@ -70,4 +105,12 @@
 
 .table-box {
   margin-top: 24px;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 16px;
+  text-align: center;
+  background-color: #1976d2;
+  color: #ffffff;
 }
