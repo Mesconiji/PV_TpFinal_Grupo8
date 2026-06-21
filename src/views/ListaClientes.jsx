@@ -1,15 +1,91 @@
-// Integrante 3 creara la tabla aca
-import { Container, Typography, Card, CardContent } from '@mui/material';
+import { useState, useEffect } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+  Container,
+  Typography,
+  Box,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Paper,
+  CircularProgress,
+  Button
+} from '@mui/material'
+import clienteService from '../services/clienteService'
 
-export default function ListaClientes() {
+const ListaClientes = () => {
+
+  const [clientes, setClientes] = useState([])
+  const [cargando, setCargando] = useState(true)
+
+  useEffect(() => {
+    const cargarClientes = async () => {
+      const data = await clienteService.obtenerClientes()
+      setClientes(data)
+      setCargando(false)
+    }
+
+    cargarClientes()
+  }, [])
+
   return (
-    <Container className="lista-container">
-      <Card>
-        <CardContent>
-          <Typography variant="h5">Lista de Clientes (Vista Principal)</Typography>
-          <Typography sx={{ mt: 1 }}>Aquí se renderizará la tabla de usuarios consumiendo GET /users de FakeStore API.</Typography>
-        </CardContent>
-      </Card>
+    <Container maxWidth="lg">
+      <Typography variant="h4" align="center" gutterBottom>
+        Lista de Clientes
+      </Typography>
+
+      {cargando ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box sx={{ marginTop: 3 }}>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Nombre Completo</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Teléfono</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {clientes.map((cliente) => {
+                  const { id, name, email, phone } = cliente
+                  const { firstname, lastname } = name
+
+                  return (
+                    <TableRow key={id}>
+                      <TableCell>{id}</TableCell>
+                      <TableCell>{firstname} {lastname}</TableCell>
+                      <TableCell>{email}</TableCell>
+                      <TableCell>{phone}</TableCell>
+                      <TableCell>
+                        <Button
+                          component={RouterLink}
+                          to={`/clientes/${id}`}
+                          variant="outlined"
+                          size="small"
+                        >
+                          Ver Ficha Completa
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      )}
     </Container>
-  );
+  )
 }
+
+export default ListaClientes
