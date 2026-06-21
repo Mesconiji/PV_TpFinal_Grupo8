@@ -41,6 +41,14 @@ const DetalleCliente = () => {
     )
   }
 
+   if (error) {
+    return (
+      <Box p={4}>
+        <Typography color="error">{error}</Typography>
+      </Box>
+    )
+  }
+
 
     const {
     name: { firstname, lastname },
