@@ -41,15 +41,14 @@ const DetalleCliente = () => {
     )
   }
 
-   if (error) {
+if (!cliente) {
     return (
       <Box p={4}>
-        <Typography color="error">{error}</Typography>
+        <Typography color="error">No se pudo cargar el cliente.</Typography>
       </Box>
     )
   }
-
-
+// Desestructuracion de los Datos del cliente
     const {
     name: { firstname, lastname },
     address: { street, number, zipcode, city },
