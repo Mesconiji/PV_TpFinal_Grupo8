@@ -20,14 +20,14 @@ export default function Nav() {
 
   return (
     <AppBar position="static" className="nav-appbar">
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+      <Toolbar className="nav-toolbar">
+        <Box className="nav-group">
           <Typography variant="h6" component="div">Admin Panel</Typography>
           <Button color="inherit" component={RouterLink} to="/dashboard">Dashboard</Button>
           <Button color="inherit" component={RouterLink} to="/clientes">Lista de Clientes</Button>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <Box className="nav-group">
           <Typography variant="body2">{auth.usuario?.nombre} — <strong>{auth.usuario?.sector}</strong></Typography>
           <Button variant="contained" color="error" onClick={handleLogout} className="logout-button">Cerrar Sesión</Button>
         </Box>

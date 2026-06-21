@@ -7,7 +7,7 @@ export default function Dashboard() {
       <Card>
         <CardContent>
           <Typography variant="h5">Dashboard Principal</Typography>
-          <Typography sx={{ mt: 1 }}>Métricas globales del sistema de administración.</Typography>
+          <Typography className="dashboard-metrics">Métricas globales del sistema de administración.</Typography>
         </CardContent>
       </Card>
     </Container>

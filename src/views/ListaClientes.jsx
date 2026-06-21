@@ -38,11 +38,11 @@ const ListaClientes = () => {
       </Typography>
 
       {cargando ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
+        <Box className="loader-box">
           <CircularProgress />
         </Box>
       ) : (
-        <Box sx={{ marginTop: 3 }}>
+        <Box className="table-box">
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
