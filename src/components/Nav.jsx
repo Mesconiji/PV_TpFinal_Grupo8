@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import '../css/indexstyle.css';
 
-export default function Nav() {
+const Nav = () => {
   const { auth, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -35,3 +35,5 @@ export default function Nav() {
     </AppBar>
   );
 }
+
+export default Nav;

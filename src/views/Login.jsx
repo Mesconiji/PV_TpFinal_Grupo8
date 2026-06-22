@@ -1,75 +1,82 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hook/userAuth';
-import { Container, Box, Typography, TextField, Button, MenuItem, Alert } from '@mui/material';
+import { Container, Box, Paper, Typography, TextField, Button, Alert } from '@mui/material';
 import '../css/indexstyle.css';
 
-export default function Login() {
+const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    nombreAdmin: '',
-    sector: 'Soporte'
-  });
+  const [form, setForm] = useState({ usuario: '', password: '' });
+  const [error, setError] = useState('');
 
-  const [error, setError] = useState(false);
+  const { usuario, password } = form;
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const manejarCambio = ({ target: { name, value } }) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const manejarSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
-    const usuarioSimulado = form.sector === 'Gerencia' ? 'gerente' : 'soporte';
-
-    const exito = login({
-      usuario: usuarioSimulado,
-      password: '1234',
-      nombreIngresado: form.nombreAdmin
-    });
-
+    const exito = await login(form);
     if (exito) {
-      setError(false);
       navigate('/dashboard');
-    } else {
-      setError(true);
+      return;
     }
+
+    setError('Usuario o contraseña incorrectos. Intenta nuevamente.');
   };
 
   return (
     <Container maxWidth="sm" className="login-container">
-      <Box component="form" onSubmit={handleSubmit} className="login-form">
-        <Typography variant="h5" component="h2">Acceso del Administrador</Typography>
+      <Paper elevation={6} className="login-card">
+        <Box className="login-header">
+          <Typography variant="h4" component="h1" gutterBottom>
+            Iniciar sesión
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Ingresa con tu usuario y contraseña para acceder al dashboard.
+          </Typography>
+        </Box>
 
-        <TextField
-          label="Nombre del Administrador"
-          name="nombreAdmin"
-          value={form.nombreAdmin}
-          onChange={handleChange}
-          required
-          fullWidth
-          className="login-field"
-        />
+        {error && (
+          <Alert severity="error" className="login-alert">
+            {error}
+          </Alert>
+        )}
 
-        <TextField
-          select
-          label="Sector"
-          name="sector"
-          value={form.sector}
-          onChange={handleChange}
-          fullWidth
-          className="login-field"
-        >
-          <MenuItem value="Soporte">Soporte</MenuItem>
-          <MenuItem value="Gerencia">Gerencia</MenuItem>
-        </TextField>
+        <Box component="form" onSubmit={manejarSubmit} noValidate className="login-form">
+          <TextField
+            className="login-field"
+            fullWidth
+            required
+            label="Usuario"
+            name="usuario"
+            value={usuario}
+            onChange={manejarCambio}
+          />
 
-        {error && <Alert severity="error">Error al procesar la autenticación del sector.</Alert>}
+          <TextField
+            className="login-field"
+            fullWidth
+            required
+            type="password"
+            label="Contraseña"
+            name="password"
+            value={password}
+            onChange={manejarCambio}
+          />
 
-        <Button type="submit" variant="contained" className="login-button">Ingresar</Button>
-      </Box>
+          <Button type="submit" variant="contained" fullWidth size="large" className="login-button">
+            Entrar
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
-}
+};
+
+export default Login;

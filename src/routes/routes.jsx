@@ -20,14 +20,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
 
-      <Route 
-        path="/dashboard" 
-          element={
-          <RutaProtegida>
-            <Dashboard />
-          </RutaProtegida>
-        } 
-      />
+      <Route path="/dashboard" element={<Dashboard />} />
       
       <Route 
         path="/clientes" 
